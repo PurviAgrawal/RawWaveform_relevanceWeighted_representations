@@ -103,7 +103,7 @@ class Net (nn.Module):
         self.tanh = nn.Tanh()
         
     def forward(self, x):
-        # Updating 2D Gaussian kernels (acoustic FB) using updated Means Parameter
+        # Updating 1-D Gaussian kernels (acoustic FB) using updated Means Parameter
         means_sorted = torch.sort(self.means)[0]
         kernels = (torch.zeros([self.ngf, self.filt_h]).cuda())
         for i in range(self.ngf):

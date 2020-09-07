@@ -8,3 +8,11 @@ The full acoustic model consisting of relevance sub-networks, convolutional laye
 
 The script Net_raw_AcFB_Attn_ModFB_Attn_CNN2D_DNN_cuda.py contains the proposed network architecture. It takes the raw speech waveform in batches as input.
 
+***************************************************************************************************
+Implementation of the paper:
+
+P. Agrawal and S. Ganapathy,"Robust Raw Waveform Speech Recognition Using Relevance Weighted Representations", INTERSPEECH, 2020.
+
+***************************************************************************************************
+
+30-Aug-2020 See the file LICENSE for the licence associated with this software.

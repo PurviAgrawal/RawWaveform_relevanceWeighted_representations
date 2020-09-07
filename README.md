@@ -1,4 +1,4 @@
-# Interpretable 2-stage representation learning from raw waveform for automatic speech recognition.
+# 2-stage representation learning from raw waveform for automatic speech recognition.
 
 A relevance weighting scheme is proposed that allows the interpretation of the speech representations during the forward propagation of the model itself. 
 The relevance weighting is achieved using a sub-network approach that performs the task of feature selection. 

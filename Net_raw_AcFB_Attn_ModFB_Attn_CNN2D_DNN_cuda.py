@@ -118,6 +118,7 @@ class Net (nn.Module):
         batch_size = x.shape[0]
         x = torch.reshape(x, (batch_size*self.patch_length, 1, self.win_length, 1)) # Bx101,1,s=400,1
 
+        # Acoustic FB layer
         x = F.conv2d(x, kernels, padding = (self.padding, 0)) # 1-D Conv as acoustic filtering --> Bx101, f=80, s=400, 1
         x = torch.reshape(x, (batch_size, self.patch_length, self.ngf, self.len_after_conv)).permute(0,2,3,1)   # Bx101,80,400,1 --> B,101,80,400 --> B, 80, 400, 101
         x = torch.abs(x)
@@ -139,7 +140,7 @@ class Net (nn.Module):
         # Pruning to (B, 1, 21, f=80)
         x = x[:, :, self.initial_splice - self.final_splice : self.initial_splice + self.final_splice + 1, :] # Spec B, 1, (2*final_splice+1), 80
 
-        # Modulation filtering
+        # Modulation filtering layer (non-parametric)
         x = self.sigmoid(self.conv1(x))  # B, 40, 19, 78
 
         # Calling modulation filtering relevance sub-network
@@ -152,7 +153,7 @@ class Net (nn.Module):
         x = self.pool1(x)  # B,40, 19, 26
         x = self.sigmoid(self.conv2(x))  # B, 40, 17, 24
         x = self.pool2(x)  # B, 40, 17, 8
-        x = torch.reshape(x, (-1, 5440))  # 40*17*8 = 5440
+        x = torch.reshape(x, (batch_size, -1))  # 40*17*8 = 5440
         x = self.d1(x)
         x = self.sigmoid(self.fc1(x))
         x = self.sigmoid(self.fc2(x))
